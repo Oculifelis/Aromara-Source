@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "status=0": {
+      "model": "aromara:block/candle_vat_0"
+    },
+    "status=1": {
+      "model": "aromara:block/candle_vat_1"
+    },
+    "status=2": {
+      "model": "aromara:block/candle_vat_2"
+    },
+    "status=3": {
+      "model": "aromara:block/candle_vat_3"
+    },
+    "status=4": {
+      "model": "aromara:block/candle_vat_4"
+    },
+    "status=5": {
+      "model": "aromara:block/candle_vat_5"
+    }
+  }
+}

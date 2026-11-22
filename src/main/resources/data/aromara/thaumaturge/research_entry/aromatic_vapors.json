@@ -1,0 +1,83 @@
+{
+  "category": "aromara:scentmixing",
+  "name": "research.aromara.aromatic_vapors.title",
+  "parents": [
+    "aromara:miasma_theory",
+    "aromara:servoscrivener",
+    "thaumaturge:plants",
+    "thaumaturge:unlock_auromancy"
+  ],
+  "column": -2,
+  "row": 0,
+  "icons": [
+    "thaumaturge:shimmerleaf"
+  ],
+  "stages": [
+    {
+      "text": "research.aromara.aromatic_vapors.stage_0",
+      "obtain": [
+        {
+          "items": [
+            "aromara:parchment"
+          ],
+          "amount": 1
+        },
+        {
+          "items": [
+            "thaumaturge:cinderpearl"
+          ],
+          "amount": 1
+        },
+        {
+          "items": [
+            "thaumaturge:shimmerleaf"
+          ],
+          "amount": 1
+        },
+        {
+          "items": [
+            "thaumaturge:vishroom"
+          ],
+          "amount": 1
+        }
+      ],
+      "required_research": [
+        "thaumaturge:scanned/plantcinderpearl",
+        "thaumaturge:scanned/plantshimmerleaf",
+        "thaumaturge:scanned/plantvishroom"
+      ],
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:alchemy",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "text": "research.aromara.aromatic_vapors.stage_1"
+    }
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:herba",
+      "amount": 5
+    },
+    {
+      "aspect": "thaumaturge:sensus",
+      "amount": 4
+    },
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:ignis",
+      "amount": 2
+    }
+  ],
+  "complexity": 2,
+  "meta": [
+    "hex"
+  ]
+}

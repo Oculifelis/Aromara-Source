@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#thaumaturge:is_magical",
+  "features": "aromara:huge_vishroom",
+  "step": "vegetal_decoration"
+}

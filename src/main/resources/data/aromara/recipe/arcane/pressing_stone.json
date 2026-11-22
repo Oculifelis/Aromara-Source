@@ -1,0 +1,32 @@
+{
+  "type": "thaumaturge:arcane_workbench_shaped",
+  "crystals": [
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 5
+    },
+    {
+      "aspect": "thaumaturge:ordo",
+      "amount": 5
+    }
+  ],
+  "key": {
+    "S": "thaumaturge:stone_arcane",
+    "R": "thaumaturge:vis_resonator",
+    "P": "thaumaturge:plate_iron",
+    "N": "#thaumaturge:nitors"
+  },
+  "pattern": [
+    "SRS",
+    "PNP",
+    "SRS"
+  ],
+  "research": {
+    "entry": "aromara:scent_burning",
+    "stage": 0
+  },
+  "result": {
+    "id": "aromara:pressing_stone"
+  },
+  "vis": 50
+}

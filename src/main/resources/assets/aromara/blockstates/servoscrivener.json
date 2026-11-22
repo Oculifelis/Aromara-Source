@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=north,has_paper=false": {
+      "model": "aromara:block/servoscrivener"
+    },
+    "facing=north,has_paper=true": {
+      "model": "aromara:block/servoscrivener_paper"
+    },
+    "facing=east,has_paper=false": {
+      "model": "aromara:block/servoscrivener",
+      "y": 90
+    },
+    "facing=east,has_paper=true": {
+      "model": "aromara:block/servoscrivener_paper",
+      "y": 90
+    },
+    "facing=south,has_paper=false": {
+      "model": "aromara:block/servoscrivener",
+      "y": 180
+    },
+    "facing=south,has_paper=true": {
+      "model": "aromara:block/servoscrivener_paper",
+      "y": 180
+    },
+    "facing=west,has_paper=false": {
+      "model": "aromara:block/servoscrivener",
+      "y": 270
+    },
+    "facing=west,has_paper=true": {
+      "model": "aromara:block/servoscrivener_paper",
+      "y": 270
+    }
+  }
+}

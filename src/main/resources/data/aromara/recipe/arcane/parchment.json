@@ -1,0 +1,23 @@
+{
+  "type": "thaumaturge:arcane_workbench_shapeless",
+  "crystals": [
+    {
+      "aspect": "thaumaturge:perditio",
+      "amount": 2
+    }
+  ],
+  "ingredients": [
+    "minecraft:sugar",
+    "thaumaturge:nugget_quicksilver",
+    "thaumaturge:nugget_quartz",
+    "minecraft:leather"
+  ],
+  "research": {
+    "entry": "aromara:servoscrivener",
+    "stage": 1
+  },
+  "result": {
+    "id": "aromara:parchment"
+  },
+  "vis": 10
+}

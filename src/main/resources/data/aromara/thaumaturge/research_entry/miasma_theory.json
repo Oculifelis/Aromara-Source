@@ -1,0 +1,46 @@
+{
+  "category": "aromara:scentmixing",
+  "name": "research.aromara.miasma_theory.title",
+  "parents": [
+    "thaumaturge:unlock_alchemy"
+  ],
+  "column": 0,
+  "row": 0,
+  "icons": [
+    "thaumaturge:vishroom",
+    "thaumaturge:cinderpearl"
+  ],
+  "stages": [
+    {
+      "text": "research.aromara.miasma_theory.stage_0",
+      "required_knowledge": [
+        {
+          "type": "observation",
+          "category": "thaumaturge:alchemy",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "text": "research.aromara.miasma_theory.stage_1"
+    }
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:sensus",
+      "amount": 4
+    },
+    {
+      "aspect": "thaumaturge:vitium",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 3
+    }
+  ],
+  "complexity": 1,
+  "meta": [
+    "round"
+  ]
+}

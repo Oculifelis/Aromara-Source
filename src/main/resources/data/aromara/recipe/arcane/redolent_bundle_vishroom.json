@@ -1,0 +1,33 @@
+{
+  "type": "thaumaturge:arcane_workbench_shapeless",
+  "crystals": [
+    {
+      "aspect": "thaumaturge:ordo",
+      "amount": 5
+    },
+    {
+      "aspect": "thaumaturge:terra",
+      "amount": 5
+    }
+  ],
+  "ingredients": [
+    "thaumaturge:vishroom",
+    "thaumaturge:vishroom",
+    "thaumaturge:vishroom",
+    "thaumaturge:vishroom",
+    "minecraft:string"
+  ],
+  "research": {
+    "entry": "aromara:scent_burning",
+    "stage": 0
+  },
+  "result": {
+    "id": "aromara:redolent_bundle",
+    "components": {
+      "aromara:scent": {
+        "scent": "aromara:vishroom"
+      }
+    }
+  },
+  "vis": 25
+}

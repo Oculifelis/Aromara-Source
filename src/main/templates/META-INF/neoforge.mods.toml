@@ -1,0 +1,37 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="${mod_license}"
+
+[[mods]]
+modId="${mod_id}"
+version="${mod_version}"
+displayName="${mod_name}"
+logoFile="aromara_logo.png"
+logoBlur=false
+authors="kodesque (original Aromara), Oculifelis (port to Thaumaturge)"
+credits="Original Aromara - Thaumic Perfumery (Thaumcraft 6, 1.12.2) by kodesque. Thaumaturge by Leclowndu93150 and contributors. Textures redrawn for this port."
+description='''
+A port of Aromara - Thaumic Perfumery (Thaumcraft 6 addon) to Thaumaturge on NeoForge 26.1.2, rebuilt on Thaumaturge's
+Thaumcraft 4 style mechanics: wands and vis, essentia tubes, aura flux and taint.
+Phase 1: the Scentmixing research tab, Redolent Bundles, the Pressing Stone, the Arcane Brazier and its three vapours,
+the Candle Vat, Scent Phials, oiled gear and huge vishrooms.
+'''
+
+[[dependencies.${mod_id}]]
+    modId="neoforge"
+    type="required"
+    versionRange="[26.1.2.71,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.${mod_id}]]
+    modId="minecraft"
+    type="required"
+    versionRange="${minecraft_version_range}"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.${mod_id}]]
+    modId="thaumaturge"
+    type="required"
+    versionRange="${thaumaturge_version_range}"
+    ordering="AFTER"
+    side="BOTH"

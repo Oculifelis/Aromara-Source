@@ -1,0 +1,71 @@
+{
+  "replace": false,
+  "values": {
+    "aromara:candle_vat": [
+      {
+        "aspect": "thaumaturge:metallum",
+        "amount": 4
+      },
+      {
+        "aspect": "thaumaturge:ignis",
+        "amount": 3
+      },
+      {
+        "aspect": "thaumaturge:alkimia",
+        "amount": 3
+      }
+    ],
+    "aromara:servoscrivener": [
+      {
+        "aspect": "thaumaturge:cognitio",
+        "amount": 4
+      },
+      {
+        "aspect": "thaumaturge:alienis",
+        "amount": 3
+      },
+      {
+        "aspect": "thaumaturge:herba",
+        "amount": 2
+      },
+      {
+        "aspect": "thaumaturge:machina",
+        "amount": 2
+      }
+    ],
+    "aromara:research_brief": [
+      {
+        "aspect": "thaumaturge:cognitio",
+        "amount": 3
+      },
+      {
+        "aspect": "thaumaturge:herba",
+        "amount": 1
+      }
+    ],
+    "aromara:vishroom_cap": [
+      {
+        "aspect": "thaumaturge:herba",
+        "amount": 2
+      },
+      {
+        "aspect": "thaumaturge:praecantatio",
+        "amount": 2
+      },
+      {
+        "aspect": "thaumaturge:tenebrae",
+        "amount": 1
+      }
+    ],
+    "aromara:vishroom_stem": [
+      {
+        "aspect": "thaumaturge:herba",
+        "amount": 2
+      },
+      {
+        "aspect": "thaumaturge:praecantatio",
+        "amount": 1
+      }
+    ]
+  }
+}

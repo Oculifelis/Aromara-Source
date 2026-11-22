@@ -1,0 +1,70 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:component",
+    "component": "aromara:scent",
+    "cases": [
+      {
+        "when": {
+          "scent": "aromara:cinderpearl",
+          "dried": true
+        },
+        "model": {
+          "type": "minecraft:model",
+          "model": "aromara:item/redolent_bundle_cinderpearl_dried"
+        }
+      },
+      {
+        "when": {
+          "scent": "aromara:cinderpearl"
+        },
+        "model": {
+          "type": "minecraft:model",
+          "model": "aromara:item/redolent_bundle_cinderpearl"
+        }
+      },
+      {
+        "when": {
+          "scent": "aromara:shimmerleaf",
+          "dried": true
+        },
+        "model": {
+          "type": "minecraft:model",
+          "model": "aromara:item/redolent_bundle_shimmerleaf_dried"
+        }
+      },
+      {
+        "when": {
+          "scent": "aromara:shimmerleaf"
+        },
+        "model": {
+          "type": "minecraft:model",
+          "model": "aromara:item/redolent_bundle_shimmerleaf"
+        }
+      },
+      {
+        "when": {
+          "scent": "aromara:vishroom",
+          "dried": true
+        },
+        "model": {
+          "type": "minecraft:model",
+          "model": "aromara:item/redolent_bundle_vishroom_dried"
+        }
+      },
+      {
+        "when": {
+          "scent": "aromara:vishroom"
+        },
+        "model": {
+          "type": "minecraft:model",
+          "model": "aromara:item/redolent_bundle_vishroom"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "aromara:item/redolent_bundle"
+    }
+  }
+}

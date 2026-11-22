@@ -1,0 +1,241 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "particle": "aromara:block/brazier_side",
+    "side": "aromara:block/brazier_side",
+    "inner": "aromara:block/brazier_inner",
+    "foot": "aromara:block/brazier_foot",
+    "coal": "aromara:block/coal"
+  },
+  "elements": [
+    {
+      "from": [
+        3,
+        0,
+        3
+      ],
+      "to": [
+        13,
+        1,
+        13
+      ],
+      "faces": {
+        "north": {
+          "texture": "#foot"
+        },
+        "south": {
+          "texture": "#foot"
+        },
+        "east": {
+          "texture": "#foot"
+        },
+        "west": {
+          "texture": "#foot"
+        },
+        "up": {
+          "texture": "#foot"
+        },
+        "down": {
+          "texture": "#foot"
+        }
+      }
+    },
+    {
+      "from": [
+        6,
+        1,
+        6
+      ],
+      "to": [
+        10,
+        3,
+        10
+      ],
+      "faces": {
+        "north": {
+          "texture": "#foot"
+        },
+        "south": {
+          "texture": "#foot"
+        },
+        "east": {
+          "texture": "#foot"
+        },
+        "west": {
+          "texture": "#foot"
+        },
+        "up": {
+          "texture": "#foot"
+        },
+        "down": {
+          "texture": "#foot"
+        }
+      }
+    },
+    {
+      "from": [
+        3,
+        3,
+        3
+      ],
+      "to": [
+        13,
+        5,
+        13
+      ],
+      "faces": {
+        "north": {
+          "texture": "#side",
+          "uv": [
+            3,
+            11,
+            13,
+            13
+          ]
+        },
+        "south": {
+          "texture": "#side",
+          "uv": [
+            3,
+            11,
+            13,
+            13
+          ]
+        },
+        "east": {
+          "texture": "#side",
+          "uv": [
+            3,
+            11,
+            13,
+            13
+          ]
+        },
+        "west": {
+          "texture": "#side",
+          "uv": [
+            3,
+            11,
+            13,
+            13
+          ]
+        },
+        "up": {
+          "texture": "#inner",
+          "uv": [
+            3,
+            3,
+            13,
+            13
+          ]
+        },
+        "down": {
+          "texture": "#side",
+          "uv": [
+            3,
+            3,
+            13,
+            13
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        1,
+        5,
+        1
+      ],
+      "to": [
+        15,
+        12,
+        15
+      ],
+      "faces": {
+        "north": {
+          "texture": "#side",
+          "uv": [
+            1,
+            0,
+            15,
+            7
+          ]
+        },
+        "south": {
+          "texture": "#side",
+          "uv": [
+            1,
+            0,
+            15,
+            7
+          ]
+        },
+        "east": {
+          "texture": "#side",
+          "uv": [
+            1,
+            0,
+            15,
+            7
+          ]
+        },
+        "west": {
+          "texture": "#side",
+          "uv": [
+            1,
+            0,
+            15,
+            7
+          ]
+        },
+        "up": {
+          "texture": "#inner",
+          "uv": [
+            1,
+            1,
+            15,
+            15
+          ]
+        },
+        "down": {
+          "texture": "#side",
+          "uv": [
+            1,
+            1,
+            15,
+            15
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        2,
+        11,
+        2
+      ],
+      "to": [
+        14,
+        12.5,
+        14
+      ],
+      "faces": {
+        "up": {
+          "texture": "#coal"
+        },
+        "north": {
+          "texture": "#coal"
+        },
+        "south": {
+          "texture": "#coal"
+        },
+        "east": {
+          "texture": "#coal"
+        },
+        "west": {
+          "texture": "#coal"
+        }
+      }
+    }
+  ]
+}

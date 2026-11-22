@@ -1,0 +1,66 @@
+{
+  "category": "aromara:scentmixing",
+  "name": "research.aromara.servoscrivener.title",
+  "parents": [
+    "aromara:miasma_theory",
+    "thaumaturge:scanned/entity/thaumaturge/cultist"
+  ],
+  "column": -1,
+  "row": -1,
+  "icons": [
+    "aromara:servoscrivener"
+  ],
+  "stages": [
+    {
+      "text": "research.aromara.servoscrivener.stage_0",
+      "required_knowledge": [
+        {
+          "type": "observation",
+          "category": "thaumaturge:eldritch",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "text": "research.aromara.servoscrivener.stage_1",
+      "required_research": [
+        "aromara:scanned/servoscrivener"
+      ],
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:auromancy",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "text": "research.aromara.servoscrivener.stage_2",
+      "recipes": [
+        "aromara:arcane/parchment"
+      ]
+    }
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 4
+    },
+    {
+      "aspect": "thaumaturge:cognitio",
+      "amount": 4
+    },
+    {
+      "aspect": "thaumaturge:humanus",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:machina",
+      "amount": 3
+    }
+  ],
+  "complexity": 2,
+  "meta": [
+    "round"
+  ]
+}

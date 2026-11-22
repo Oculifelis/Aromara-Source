@@ -1,0 +1,53 @@
+{
+  "pressing_stone": {
+    "press_ticks": 3600,
+    "crystal_chance": 0.01,
+    "flux_chance": 0.2,
+    "flux_amount": 1
+  },
+  "brazier": {
+    "ticks_per_coal": 100,
+    "max_coal": 64,
+    "radius": 10,
+    "ignite_centivis": 200
+  },
+  "purge_taint": {
+    "flux_drained": 1,
+    "burn_seconds": 10,
+    "pressure_cleaned": 0.5,
+    "goo_chance": 0.1,
+    "goo_tries": 10
+  },
+  "alchemical_metabolism": {
+    "food": 1,
+    "vis_drained": 10
+  },
+  "confusion": {
+    "pairs": 1,
+    "warp_chance": 0.1,
+    "warp_amount": 1,
+    "warp_type": 2
+  },
+  "candle_vat": {
+    "stage_ticks": 2400,
+    "spoil_ticks": 200,
+    "essentia_max": 30,
+    "essentia_interval": 160,
+    "suction": 128
+  },
+  "kindling_retort": {
+    "radius": 10,
+    "seconds_per_piece": 2
+  },
+  "mercurial_edge": {
+    "food_cost": 1
+  },
+  "vapor_veil": {
+    "chance_per_piece": 0.05
+  },
+  "servoscrivener": {
+    "riddle_delay": 40,
+    "inform_radius": 5,
+    "jar_radius": 10
+  }
+}

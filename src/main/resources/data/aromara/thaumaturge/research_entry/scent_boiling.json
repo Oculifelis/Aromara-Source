@@ -1,0 +1,73 @@
+{
+  "category": "aromara:scentmixing",
+  "name": "research.aromara.scent_boiling.title",
+  "parents": [
+    "aromara:aromatic_oils",
+    "thaumaturge:tubes"
+  ],
+  "column": -3,
+  "row": 2,
+  "icons": [
+    "aromara:candle_vat",
+    "aromara:scent_phial"
+  ],
+  "stages": [
+    {
+      "text": "research.aromara.scent_boiling.stage_0",
+      "obtain": [
+        {
+          "items": [
+            "aromara:research_brief"
+          ],
+          "amount": 1,
+          "components": {
+            "aromara:brief": {
+              "research": "aromara:scent_boiling",
+              "done": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "text": "research.aromara.scent_boiling.stage_1",
+      "recipes": [
+        "aromara:arcane/heating_element"
+      ],
+      "craft": [
+        {
+          "items": [
+            "aromara:heating_element"
+          ],
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "text": "research.aromara.scent_boiling.stage_2",
+      "recipes": [
+        "aromara:arcane/heating_element",
+        "aromara:arcane/scent_phial"
+      ]
+    }
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:ignis",
+      "amount": 5
+    },
+    {
+      "aspect": "thaumaturge:praemunio",
+      "amount": 4
+    },
+    {
+      "aspect": "thaumaturge:bestia",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:sensus",
+      "amount": 3
+    }
+  ],
+  "complexity": 3
+}

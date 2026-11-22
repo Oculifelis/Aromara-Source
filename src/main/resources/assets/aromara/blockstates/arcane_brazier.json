@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "status=0": {
+      "model": "aromara:block/arcane_brazier_0"
+    },
+    "status=1": {
+      "model": "aromara:block/arcane_brazier_1"
+    },
+    "status=2": {
+      "model": "aromara:block/arcane_brazier_2"
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "aromara:block/vishroom_cap"
+      }
+    }
+  ]
+}

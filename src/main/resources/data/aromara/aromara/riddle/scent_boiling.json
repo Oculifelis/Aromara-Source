@@ -1,0 +1,39 @@
+{
+  "hypothesis": "aromara:aromatic_oils",
+  "picks": 3,
+  "text": "@Feral fats soak up the @arcane gist. No longer do they @shield against the winter wind; they bear the arsenal of @slaughter and @revival. New properties @pass from one thing to another, and the latter grows hungry for @fervour. The blade glimmers with a @sudden change, yet its smell remains the same.",
+  "words": [
+    {
+      "aspect": "thaumaturge:bestia",
+      "amount": 20
+    },
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 10
+    },
+    {
+      "aspect": "thaumaturge:praemunio",
+      "amount": 30
+    },
+    {
+      "aspect": "thaumaturge:aversio",
+      "amount": 5
+    },
+    {
+      "aspect": "thaumaturge:spiritus",
+      "amount": 5
+    },
+    {
+      "aspect": "thaumaturge:motus",
+      "amount": 20
+    },
+    {
+      "aspect": "thaumaturge:ignis",
+      "amount": 20
+    },
+    {
+      "aspect": "thaumaturge:volatus",
+      "amount": 5
+    }
+  ]
+}

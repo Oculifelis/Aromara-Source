@@ -1,0 +1,61 @@
+{
+  "category": "aromara:scentmixing",
+  "name": "research.aromara.scent_burning.title",
+  "parents": [
+    "aromara:aromatic_vapors"
+  ],
+  "column": -4,
+  "row": 0,
+  "icons": [
+    "aromara:arcane_brazier",
+    "aromara:pressing_stone"
+  ],
+  "stages": [
+    {
+      "text": "research.aromara.scent_burning.stage_0",
+      "obtain": [
+        {
+          "items": [
+            "aromara:research_brief"
+          ],
+          "amount": 1,
+          "components": {
+            "aromara:brief": {
+              "research": "aromara:scent_burning",
+              "done": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "text": "research.aromara.scent_burning.stage_1",
+      "recipes": [
+        "aromara:arcane/redolent_bundle_cinderpearl",
+        "aromara:arcane/redolent_bundle_shimmerleaf",
+        "aromara:arcane/redolent_bundle_vishroom",
+        "aromara:arcane/pressing_stone",
+        "aromara:arcane/arcane_brazier"
+      ]
+    }
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:ignis",
+      "amount": 5
+    },
+    {
+      "aspect": "thaumaturge:herba",
+      "amount": 4
+    },
+    {
+      "aspect": "thaumaturge:sensus",
+      "amount": 4
+    },
+    {
+      "aspect": "thaumaturge:vitium",
+      "amount": 3
+    }
+  ],
+  "complexity": 2
+}

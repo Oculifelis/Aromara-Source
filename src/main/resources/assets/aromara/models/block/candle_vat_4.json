@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/template_cauldron_full",
+  "textures": {
+    "particle": "aromara:block/candle_vat_side",
+    "side": "aromara:block/candle_vat_side",
+    "top": "aromara:block/candle_vat_top",
+    "bottom": "aromara:block/candle_vat_bottom",
+    "inside": "aromara:block/candle_vat_inner",
+    "content": "aromara:block/tallow_rancid"
+  }
+}

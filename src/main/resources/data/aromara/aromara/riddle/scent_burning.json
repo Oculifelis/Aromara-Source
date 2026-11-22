@@ -1,0 +1,43 @@
+{
+  "hypothesis": "aromara:aromatic_vapors",
+  "picks": 3,
+  "text": "@Man takes from @nature its abundant gifts and draws smouldering stones from its @hollows. The @crimson jaws devour the harvest. The @dead crumble into a @gentle power. The @air sparks with new @feeling and drives the @curse away.",
+  "words": [
+    {
+      "aspect": "thaumaturge:humanus",
+      "amount": 15
+    },
+    {
+      "aspect": "thaumaturge:herba",
+      "amount": 10
+    },
+    {
+      "aspect": "thaumaturge:vacuos",
+      "amount": 5
+    },
+    {
+      "aspect": "thaumaturge:ignis",
+      "amount": 20
+    },
+    {
+      "aspect": "thaumaturge:mortuus",
+      "amount": 10
+    },
+    {
+      "aspect": "thaumaturge:auram",
+      "amount": 5
+    },
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 10
+    },
+    {
+      "aspect": "thaumaturge:sensus",
+      "amount": 20
+    },
+    {
+      "aspect": "thaumaturge:vitium",
+      "amount": 15
+    }
+  ]
+}

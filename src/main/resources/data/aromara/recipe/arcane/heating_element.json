@@ -1,0 +1,36 @@
+{
+  "type": "thaumaturge:arcane_workbench_shaped",
+  "crystals": [
+    {
+      "aspect": "thaumaturge:ignis",
+      "amount": 5
+    }
+  ],
+  "key": {
+    "C": {
+      "neoforge:ingredient_type": "neoforge:components",
+      "items": "thaumaturge:essentia_crystal",
+      "components": {
+        "thaumaturge:crystal_aspect": {
+          "aspect": "thaumaturge:ignis"
+        }
+      }
+    },
+    "P": "thaumaturge:plate_iron",
+    "H": "minecraft:tripwire_hook",
+    "E": "thaumaturge:nugget_brass"
+  },
+  "pattern": [
+    " C ",
+    "PHP",
+    " E "
+  ],
+  "research": {
+    "entry": "aromara:scent_boiling",
+    "stage": 0
+  },
+  "result": {
+    "id": "aromara:heating_element"
+  },
+  "vis": 50
+}

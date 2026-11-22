@@ -1,0 +1,68 @@
+{
+  "category": "aromara:scentmixing",
+  "name": "research.aromara.aromatic_oils.title",
+  "parents": [
+    "aromara:scent_burning",
+    "thaumaturge:hedge_alchemy"
+  ],
+  "column": -5,
+  "row": 2,
+  "icons": [
+    "thaumaturge:tallow"
+  ],
+  "stages": [
+    {
+      "text": "research.aromara.aromatic_oils.stage_0",
+      "required_research": [
+        "aromara:scanned/zombie",
+        "aromara:scanned/blaze"
+      ],
+      "obtain": [
+        {
+          "items": [
+            "aromara:parchment"
+          ],
+          "amount": 1
+        },
+        {
+          "items": [
+            "minecraft:lava_bucket"
+          ],
+          "amount": 1
+        }
+      ],
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:alchemy",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "text": "research.aromara.aromatic_oils.stage_1"
+    }
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:bestia",
+      "amount": 4
+    },
+    {
+      "aspect": "thaumaturge:ignis",
+      "amount": 4
+    },
+    {
+      "aspect": "thaumaturge:sensus",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:praemunio",
+      "amount": 3
+    }
+  ],
+  "complexity": 2,
+  "meta": [
+    "hex"
+  ]
+}

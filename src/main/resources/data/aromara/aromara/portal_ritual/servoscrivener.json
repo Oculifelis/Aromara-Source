@@ -1,0 +1,10 @@
+{
+  "portal": "thaumaturge:cultist_portal_lesser",
+  "research": "aromara:servoscrivener",
+  "offerings": [
+    "thaumaturge:brain",
+    "thaumaturge:scribing_tools",
+    "minecraft:ender_pearl"
+  ],
+  "drop": "aromara:servoscrivener"
+}

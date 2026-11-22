@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "down=false": {
+      "model": "aromara:block/pressing_stone"
+    },
+    "down=true": {
+      "model": "aromara:block/pressing_stone_down"
+    }
+  }
+}

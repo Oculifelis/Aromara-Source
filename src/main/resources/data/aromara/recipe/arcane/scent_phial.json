@@ -1,0 +1,19 @@
+{
+  "type": "thaumaturge:arcane_workbench_shapeless",
+  "crystals": [],
+  "ingredients": [
+    "thaumaturge:tallow",
+    "minecraft:clay_ball",
+    "thaumaturge:salis_mundus",
+    "thaumaturge:phial"
+  ],
+  "research": {
+    "entry": "aromara:scent_boiling",
+    "stage": 1
+  },
+  "result": {
+    "id": "aromara:scent_phial",
+    "count": 2
+  },
+  "vis": 10
+}
