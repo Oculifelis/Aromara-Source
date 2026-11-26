@@ -16,6 +16,11 @@ public final class Casters {
     private Casters() {
     }
 
+    /** True for a Thaumaturge wand or any addon caster. */
+    public static boolean isCaster(ItemStack stack) {
+        return stack.getItem() instanceof ItemWand || stack.getItem() instanceof ICaster;
+    }
+
     /** Spends {@code centivis} ignis (100 per vis); free when 0, and always free in creative. */
     public static boolean spendIgnis(ItemStack caster, Player player, int centivis) {
         if (centivis <= 0 || player.getAbilities().instabuild) {

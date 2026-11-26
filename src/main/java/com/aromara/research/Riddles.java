@@ -8,13 +8,11 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import net.minecraft.resources.FileToIdConverter;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
-import org.jspecify.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Servoscrivener riddles: {@code data/<ns>/aromara/riddle/<research>.json}. The file id is the research the solved
@@ -30,44 +28,44 @@ public final class Riddles {
         ).apply(i, Word::new));
     }
 
-    public record Riddle(Identifier hypothesis, String text, List<Word> words, int picks) {
+    public record Riddle(ResourceLocation hypothesis, String text, List<Word> words, int picks) {
         public static final Codec<Riddle> CODEC = RecordCodecBuilder.create(i -> i.group(
-                Identifier.CODEC.fieldOf("hypothesis").forGetter(Riddle::hypothesis),
+                ResourceLocation.CODEC.fieldOf("hypothesis").forGetter(Riddle::hypothesis),
                 Codec.STRING.fieldOf("text").forGetter(Riddle::text),
                 Word.CODEC.listOf().fieldOf("words").forGetter(Riddle::words),
                 Codec.intRange(1, 64).optionalFieldOf("picks", 3).forGetter(Riddle::picks)
         ).apply(i, Riddle::new));
     }
 
-    private static volatile Map<Identifier, Riddle> riddles = Map.of();
+    private static volatile Map<ResourceLocation, Riddle> riddles = Map.of();
 
     private Riddles() {
     }
 
-    public static @Nullable Riddle get(Identifier research) {
+    public static @Nullable Riddle get(ResourceLocation research) {
         return riddles.get(research);
     }
 
-    public static Map<Identifier, Riddle> all() {
+    public static Map<ResourceLocation, Riddle> all() {
         return riddles;
     }
 
-    public static String researchTitleKey(Identifier research) {
+    public static String researchTitleKey(ResourceLocation research) {
         return "research." + research.getNamespace() + "." + research.getPath() + ".title";
     }
 
-    public static String riddleTitleKey(Identifier research) {
+    public static String riddleTitleKey(ResourceLocation research) {
         return "riddle." + research.getNamespace() + "." + research.getPath() + ".title";
     }
 
-    public static final class Listener extends SimpleJsonResourceReloadListener<Riddle> {
+    public static final class Listener extends com.aromara.util.CodecJsonListener<Riddle> {
         public Listener() {
-            super(Riddle.CODEC, FileToIdConverter.json("aromara/riddle"));
+            super(Riddle.CODEC, "aromara/riddle");
         }
 
         @Override
-        protected void apply(Map<Identifier, Riddle> files, ResourceManager rm, ProfilerFiller profiler) {
-            Map<Identifier, Riddle> ok = new LinkedHashMap<>();
+        protected void applyDecoded(Map<ResourceLocation, Riddle> files, ResourceManager rm, ProfilerFiller profiler) {
+            Map<ResourceLocation, Riddle> ok = new LinkedHashMap<>();
             files.forEach((id, r) -> {
                 long marked = r.text().chars().filter(c -> c == '@').count();
                 if (marked != r.words().size()) {

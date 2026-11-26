@@ -13,7 +13,7 @@ import java.util.Map;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
@@ -34,9 +34,9 @@ public final class BrazierEffects {
         void apply(ServerLevel level, BlockPos pos, AABB area);
     }
 
-    private static final Identifier FLUX_GOO = Identifier.fromNamespaceAndPath("thaumaturge", "flux_goo");
+    private static final ResourceLocation FLUX_GOO = ResourceLocation.fromNamespaceAndPath("thaumaturge", "flux_goo");
 
-    public static final Map<Identifier, Effect> EFFECTS = Map.of(
+    public static final Map<ResourceLocation, Effect> EFFECTS = Map.of(
             Aromara.id("purge_taint"), BrazierEffects::purgeTaint,
             Aromara.id("alchemical_metabolism"), BrazierEffects::metabolism,
             Aromara.id("confusion"), BrazierEffects::confusion);
@@ -44,7 +44,7 @@ public final class BrazierEffects {
     private BrazierEffects() {
     }
 
-    public static void apply(Identifier effect, ServerLevel level, BlockPos pos) {
+    public static void apply(ResourceLocation effect, ServerLevel level, BlockPos pos) {
         Effect e = EFFECTS.get(effect);
         if (e == null) {
             Aromara.LOG.warn("Unknown brazier effect {} at {}", effect, pos);
@@ -66,7 +66,7 @@ public final class BrazierEffects {
         }
         RandomSource random = level.getRandom();
         if (level.isRainingAt(pos.above()) && random.nextDouble() < AromaraTuning.get("purge_taint.goo_chance")) {
-            Block goo = BuiltInRegistries.BLOCK.getValue(FLUX_GOO);
+            Block goo = BuiltInRegistries.BLOCK.get(FLUX_GOO);
             if (goo == Blocks.AIR) {
                 return;
             }

@@ -2,5 +2,13 @@
   "parent": "minecraft:item/generated",
   "textures": {
     "layer0": "thaumaturge:item/phial"
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "aromara:filled": 1
+      },
+      "model": "aromara:item/scent_phial_filled"
+    }
+  ]
 }

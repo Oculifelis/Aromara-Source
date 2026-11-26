@@ -1,6 +1,6 @@
 package com.aromara.util;
 
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 
 /** Thaumaturge's own sound events, played by id so Aromara needs no hard reference to its sound registry. */
@@ -16,6 +16,6 @@ public final class TTSounds {
     }
 
     private static SoundEvent of(String name) {
-        return SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("thaumaturge", name));
+        return SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath("thaumaturge", name));
     }
 }

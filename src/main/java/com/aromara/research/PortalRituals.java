@@ -12,11 +12,9 @@ import java.util.List;
 import java.util.Map;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.FileToIdConverter;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.entity.Entity;
@@ -39,10 +37,10 @@ import net.neoforged.neoforge.event.tick.EntityTickEvent;
  * Servoscrivener. Only items the right player threw count (the {@code aromara:scholar_toss} attachment).
  */
 public final class PortalRituals {
-    public record Ritual(EntityType<?> portal, Identifier research, List<Item> offerings, Item drop) {
+    public record Ritual(EntityType<?> portal, ResourceLocation research, List<Item> offerings, Item drop) {
         public static final Codec<Ritual> CODEC = RecordCodecBuilder.create(i -> i.group(
                 BuiltInRegistries.ENTITY_TYPE.byNameCodec().fieldOf("portal").forGetter(Ritual::portal),
-                Identifier.CODEC.fieldOf("research").forGetter(Ritual::research),
+                ResourceLocation.CODEC.fieldOf("research").forGetter(Ritual::research),
                 BuiltInRegistries.ITEM.byNameCodec().listOf().fieldOf("offerings").forGetter(Ritual::offerings),
                 BuiltInRegistries.ITEM.byNameCodec().fieldOf("drop").forGetter(Ritual::drop)
         ).apply(i, Ritual::new));
@@ -72,7 +70,7 @@ public final class PortalRituals {
         bus.addListener(PortalRituals::onDrops);
     }
 
-    private static boolean knows(Player player, Identifier research) {
+    private static boolean knows(Player player, ResourceLocation research) {
         return KnowledgeAccess.of(player).researchStatus(research) != ResearchStatus.UNKNOWN;
     }
 
@@ -152,13 +150,13 @@ public final class PortalRituals {
         }
     }
 
-    public static final class Listener extends SimpleJsonResourceReloadListener<Ritual> {
+    public static final class Listener extends com.aromara.util.CodecJsonListener<Ritual> {
         public Listener() {
-            super(Ritual.CODEC, FileToIdConverter.json("aromara/portal_ritual"));
+            super(Ritual.CODEC, "aromara/portal_ritual");
         }
 
         @Override
-        protected void apply(Map<Identifier, Ritual> files, ResourceManager rm, ProfilerFiller profiler) {
+        protected void applyDecoded(Map<ResourceLocation, Ritual> files, ResourceManager rm, ProfilerFiller profiler) {
             rituals = List.copyOf(files.values());
             Aromara.LOG.info("Aromara portal rituals: {}", files.keySet());
         }

@@ -2,5 +2,43 @@
   "parent": "minecraft:item/generated",
   "textures": {
     "layer0": "aromara:item/bundle_cinderpearl"
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "aromara:bundle": 0.1
+      },
+      "model": "aromara:item/redolent_bundle_cinderpearl"
+    },
+    {
+      "predicate": {
+        "aromara:bundle": 0.15
+      },
+      "model": "aromara:item/redolent_bundle_cinderpearl_dried"
+    },
+    {
+      "predicate": {
+        "aromara:bundle": 0.3
+      },
+      "model": "aromara:item/redolent_bundle_shimmerleaf"
+    },
+    {
+      "predicate": {
+        "aromara:bundle": 0.35
+      },
+      "model": "aromara:item/redolent_bundle_shimmerleaf_dried"
+    },
+    {
+      "predicate": {
+        "aromara:bundle": 0.5
+      },
+      "model": "aromara:item/redolent_bundle_vishroom"
+    },
+    {
+      "predicate": {
+        "aromara:bundle": 0.55
+      },
+      "model": "aromara:item/redolent_bundle_vishroom_dried"
+    }
+  ]
 }

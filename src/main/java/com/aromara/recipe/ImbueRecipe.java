@@ -4,17 +4,17 @@ import com.aromara.ARRegistry;
 import com.aromara.data.Scents;
 import com.aromara.item.OilData;
 import com.aromara.scent.OilEffects;
-import com.mojang.serialization.MapCodec;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 import net.minecraft.world.level.Level;
-import org.jspecify.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * A filled Scent Phial and one piece of gear in a crafting grid: the gear comes out carrying the oil
@@ -22,10 +22,11 @@ import org.jspecify.annotations.Nullable;
  * {@code #aromara:imbuable/tool}; rancid oil goes on either and does nothing, as in the original.
  */
 public class ImbueRecipe extends CustomRecipe {
-    public static final ImbueRecipe INSTANCE = new ImbueRecipe();
-    public static final MapCodec<ImbueRecipe> MAP_CODEC = MapCodec.unit(INSTANCE);
-    public static final StreamCodec<RegistryFriendlyByteBuf, ImbueRecipe> STREAM_CODEC = StreamCodec.unit(INSTANCE);
-    public static final RecipeSerializer<ImbueRecipe> SERIALIZER = new RecipeSerializer<>(MAP_CODEC, STREAM_CODEC);
+    public static final RecipeSerializer<ImbueRecipe> SERIALIZER = new SimpleCraftingRecipeSerializer<>(ImbueRecipe::new);
+
+    public ImbueRecipe(CraftingBookCategory category) {
+        super(category);
+    }
 
     private record Pair(ItemStack gear, OilData oil) {
     }
@@ -74,7 +75,7 @@ public class ImbueRecipe extends CustomRecipe {
     }
 
     @Override
-    public ItemStack assemble(CraftingInput input) {
+    public ItemStack assemble(CraftingInput input, HolderLookup.Provider registries) {
         Pair pair = find(input);
         if (pair == null) {
             return ItemStack.EMPTY;
@@ -82,6 +83,11 @@ public class ImbueRecipe extends CustomRecipe {
         ItemStack result = pair.gear().copyWithCount(1);
         result.set(ARRegistry.OIL.get(), pair.oil());
         return result;
+    }
+
+    @Override
+    public boolean canCraftInDimensions(int width, int height) {
+        return width * height >= 2;
     }
 
     @Override

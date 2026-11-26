@@ -7,10 +7,18 @@
     }
   ],
   "ingredients": [
-    "minecraft:sugar",
-    "thaumaturge:nugget_quicksilver",
-    "thaumaturge:nugget_quartz",
-    "minecraft:leather"
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "item": "thaumaturge:nugget_quicksilver"
+    },
+    {
+      "item": "thaumaturge:nugget_quartz"
+    },
+    {
+      "item": "minecraft:leather"
+    }
   ],
   "research": {
     "entry": "aromara:servoscrivener",

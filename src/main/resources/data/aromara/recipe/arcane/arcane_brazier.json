@@ -7,10 +7,18 @@
     }
   ],
   "key": {
-    "P": "minecraft:stone_slab",
-    "O": "minecraft:obsidian",
-    "S": "minecraft:stone",
-    "L": "thaumaturge:log_greatwood"
+    "P": {
+      "item": "minecraft:stone_slab"
+    },
+    "O": {
+      "item": "minecraft:obsidian"
+    },
+    "S": {
+      "item": "minecraft:stone"
+    },
+    "L": {
+      "item": "thaumaturge:log_greatwood"
+    }
   },
   "pattern": [
     "PPP",

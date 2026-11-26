@@ -11,11 +11,21 @@
     }
   ],
   "ingredients": [
-    "thaumaturge:shimmerleaf",
-    "thaumaturge:shimmerleaf",
-    "thaumaturge:shimmerleaf",
-    "thaumaturge:shimmerleaf",
-    "minecraft:string"
+    {
+      "item": "thaumaturge:shimmerleaf"
+    },
+    {
+      "item": "thaumaturge:shimmerleaf"
+    },
+    {
+      "item": "thaumaturge:shimmerleaf"
+    },
+    {
+      "item": "thaumaturge:shimmerleaf"
+    },
+    {
+      "item": "minecraft:string"
+    }
   ],
   "research": {
     "entry": "aromara:scent_burning",

@@ -1,7 +1,4 @@
-.gradle/
 build/
 run/
+.gradle/
 libs/*.jar
-*.log
-.idea/
-out/

@@ -2,6 +2,7 @@ package com.aromara.block;
 
 import com.aromara.ARRegistry;
 import com.aromara.data.AromaraTuning;
+import com.aromara.scent.BrazierCore;
 import com.aromara.util.Casters;
 import com.leclowndu93150.thaumaturge.api.casters.IInteractWithCaster;
 import com.mojang.serialization.MapCodec;
@@ -14,6 +15,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -29,13 +31,13 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jspecify.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /** Coal and a dried bundle go in by hand; a wand lights it for a little ignis vis (the original wanted a lens). */
 public class ArcaneBrazierBlock extends BaseEntityBlock implements IInteractWithCaster {
-    public static final int EMPTY = 0;
-    public static final int FUELLED = 1;
-    public static final int BURNING = 2;
+    public static final int EMPTY = BrazierCore.EMPTY;
+    public static final int FUELLED = BrazierCore.FUELLED;
+    public static final int BURNING = BrazierCore.BURNING;
     public static final IntegerProperty STATUS = IntegerProperty.create("status", 0, 2);
     private static final VoxelShape SHAPE = Block.box(1, 0, 1, 15, 12, 15);
 
@@ -65,23 +67,28 @@ public class ArcaneBrazierBlock extends BaseEntityBlock implements IInteractWith
     }
 
     @Override
-    protected InteractionResult useItemOn(ItemStack held, BlockState state, Level level, BlockPos pos, Player player,
+    protected ItemInteractionResult useItemOn(ItemStack held, BlockState state, Level level, BlockPos pos, Player player,
                                           InteractionHand hand, BlockHitResult hit) {
         if (!(level.getBlockEntity(pos) instanceof ArcaneBrazierBlockEntity be)) {
-            return InteractionResult.TRY_WITH_EMPTY_HAND;
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
         if (level.isClientSide()) {
-            return InteractionResult.SUCCESS;
+            return ItemInteractionResult.SUCCESS;
         }
-        int moved = be.insert(held);
+        if (be.core.pour(held)) {
+            BrazierCore.usePoured(player, hand, held);
+            level.playSound(null, pos, SoundEvents.BREWING_STAND_BREW, SoundSource.BLOCKS, 0.8f, 1.2f);
+            return ItemInteractionResult.SUCCESS;
+        }
+        int moved = be.core.insert(held);
         if (moved <= 0) {
-            return InteractionResult.TRY_WITH_EMPTY_HAND;
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
         if (!player.getAbilities().instabuild) {
             held.shrink(moved);
         }
         level.playSound(null, pos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS, 0.8f, 1.0f);
-        return InteractionResult.SUCCESS;
+        return ItemInteractionResult.SUCCESS;
     }
 
     @Override
@@ -92,7 +99,7 @@ public class ArcaneBrazierBlock extends BaseEntityBlock implements IInteractWith
         if (level.isClientSide()) {
             return InteractionResult.SUCCESS;
         }
-        ItemStack out = be.takeOut();
+        ItemStack out = be.core.takeOut();
         if (out.isEmpty()) {
             return InteractionResult.PASS;
         }
@@ -107,14 +114,14 @@ public class ArcaneBrazierBlock extends BaseEntityBlock implements IInteractWith
         if (level.isClientSide()) {
             return true;
         }
-        if (!(level.getBlockEntity(pos) instanceof ArcaneBrazierBlockEntity be) || !be.canIgnite()) {
+        if (!(level.getBlockEntity(pos) instanceof ArcaneBrazierBlockEntity be) || !be.core.canIgnite()) {
             return false;
         }
         if (!Casters.spendIgnis(caster, player, AromaraTuning.getInt("brazier.ignite_centivis"))) {
-            player.sendOverlayMessage(Component.translatable("message.aromara.brazier.no_ignis"));
+            player.displayClientMessage(Component.translatable("message.aromara.brazier.no_ignis"), true);
             return true;
         }
-        be.ignite();
+        be.core.ignite();
         level.playSound(null, pos, SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 0.8f, 1.0f);
         return true;
     }
@@ -135,5 +142,13 @@ public class ArcaneBrazierBlock extends BaseEntityBlock implements IInteractWith
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(STATUS);
+    }
+
+    @Override
+    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean moved) {
+        if (!state.is(newState.getBlock()) && level.getBlockEntity(pos) instanceof ArcaneBrazierBlockEntity be) {
+            be.preRemoveSideEffects(pos, state);
+        }
+        super.onRemove(state, level, pos, newState, moved);
     }
 }

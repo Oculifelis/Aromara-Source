@@ -11,11 +11,21 @@
     }
   ],
   "ingredients": [
-    "thaumaturge:cinderpearl",
-    "thaumaturge:cinderpearl",
-    "thaumaturge:cinderpearl",
-    "thaumaturge:cinderpearl",
-    "minecraft:string"
+    {
+      "item": "thaumaturge:cinderpearl"
+    },
+    {
+      "item": "thaumaturge:cinderpearl"
+    },
+    {
+      "item": "thaumaturge:cinderpearl"
+    },
+    {
+      "item": "thaumaturge:cinderpearl"
+    },
+    {
+      "item": "minecraft:string"
+    }
   ],
   "research": {
     "entry": "aromara:scent_burning",

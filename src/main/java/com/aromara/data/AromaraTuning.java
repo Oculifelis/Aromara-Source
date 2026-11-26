@@ -6,10 +6,8 @@ import com.google.gson.JsonObject;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.TreeMap;
-import net.minecraft.resources.FileToIdConverter;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.profiling.ProfilerFiller;
 
@@ -38,6 +36,13 @@ public final class AromaraTuning {
         def("brazier.max_coal", 64, 1, 64);
         def("brazier.radius", 10, 1, 32);
         def("brazier.ignite_centivis", 200, 0, 10_000);
+
+        def("brew.burn_seconds", 60, 1, 3600);
+        def("brew.extended_multiplier", 2, 1, 8);
+        def("brew.effect_ticks", 160, 20, 2400);
+        def("brew.refresh_ticks", 80, 10, 1200);
+        def("brew.instant_every", 3, 1, 60);
+        def("brew.coal_rate", 2, 1, 8);
 
         def("purge_taint.flux_drained", 1, 0, 100);
         def("purge_taint.burn_seconds", 10, 0, 120);
@@ -83,13 +88,13 @@ public final class AromaraTuning {
         return (int) Math.round(get(key));
     }
 
-    public static final class Listener extends SimpleJsonResourceReloadListener<JsonElement> {
+    public static final class Listener extends com.aromara.util.CodecJsonListener<JsonElement> {
         public Listener() {
-            super(ExtraCodecs.JSON, FileToIdConverter.json("aromara/tuning"));
+            super(ExtraCodecs.JSON, "aromara/tuning");
         }
 
         @Override
-        protected void apply(Map<Identifier, JsonElement> files, ResourceManager rm, ProfilerFiller profiler) {
+        protected void applyDecoded(Map<ResourceLocation, JsonElement> files, ResourceManager rm, ProfilerFiller profiler) {
             Map<String, Double> next = new LinkedHashMap<>();
             new TreeMap<>(files).forEach((file, json) -> {
                 if (!json.isJsonObject()) {

@@ -11,7 +11,7 @@ import java.util.Map;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -25,7 +25,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
-import org.jspecify.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * The two halves of the riddle research around the Servoscrivener: finishing a hypothesis entry hands out its open
@@ -45,7 +45,7 @@ public final class ScrivenerEvents {
         if (!(event.player() instanceof ServerPlayer player)) {
             return;
         }
-        for (Map.Entry<Identifier, Riddles.Riddle> e : Riddles.all().entrySet()) {
+        for (Map.Entry<ResourceLocation, Riddles.Riddle> e : Riddles.all().entrySet()) {
             if (e.getValue().hypothesis().equals(event.research())) {
                 ItemStack brief = ResearchBriefItem.create(e.getKey(), false);
                 if (!player.addItem(brief)) {

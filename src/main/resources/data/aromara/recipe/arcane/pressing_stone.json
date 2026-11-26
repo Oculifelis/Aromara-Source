@@ -11,10 +11,18 @@
     }
   ],
   "key": {
-    "S": "thaumaturge:stone_arcane",
-    "R": "thaumaturge:vis_resonator",
-    "P": "thaumaturge:plate_iron",
-    "N": "#thaumaturge:nitors"
+    "S": {
+      "item": "thaumaturge:stone_arcane"
+    },
+    "R": {
+      "item": "thaumaturge:vis_resonator"
+    },
+    "P": {
+      "item": "thaumaturge:plate_iron"
+    },
+    "N": {
+      "tag": "thaumaturge:nitors"
+    }
   },
   "pattern": [
     "SRS",

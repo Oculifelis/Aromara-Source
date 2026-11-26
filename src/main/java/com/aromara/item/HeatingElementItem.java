@@ -3,7 +3,7 @@ package com.aromara.item;
 import com.aromara.ARRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
@@ -13,7 +13,7 @@ import net.minecraft.world.level.Level;
 
 /** Used on a Thaumaturge crucible, it turns the crucible into a Candle Vat. */
 public class HeatingElementItem extends Item {
-    private static final Identifier CRUCIBLE = Identifier.fromNamespaceAndPath("thaumaturge", "crucible");
+    private static final ResourceLocation CRUCIBLE = ResourceLocation.fromNamespaceAndPath("thaumaturge", "crucible");
 
     public HeatingElementItem(Properties properties) {
         super(properties);

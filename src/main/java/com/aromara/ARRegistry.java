@@ -8,6 +8,8 @@ import com.aromara.block.PressingStoneBlock;
 import com.aromara.block.PressingStoneBlockEntity;
 import com.aromara.block.ServoscrivenerBlock;
 import com.aromara.block.ServoscrivenerBlockEntity;
+import com.aromara.entity.BrazierCart;
+import com.aromara.item.BrazierCartItem;
 import com.aromara.item.BriefData;
 import com.aromara.item.HeatingElementItem;
 import com.aromara.item.OilData;
@@ -27,6 +29,9 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -39,7 +44,9 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.attachment.AttachmentType;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.items.wrapper.InvWrapper;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -55,6 +62,7 @@ public final class ARRegistry {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, MODID);
     public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(Registries.RECIPE_SERIALIZER, MODID);
     public static final DeferredRegister<AttachmentType<?>> ATTACHMENTS = DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, MODID);
+    public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(Registries.ENTITY_TYPE, MODID);
     public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
     private static final List<Supplier<? extends Item>> TAB_ITEMS = new ArrayList<>();
@@ -68,10 +76,10 @@ public final class ARRegistry {
 
     /** Which ritual offerings a portal creature has swallowed (see research/PortalRituals). */
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<List<Item>>> PORTAL_OFFERINGS = ATTACHMENTS.register("portal_offerings",
-            () -> AttachmentType.<List<Item>>builder(() -> List.of()).serialize(BuiltInRegistries.ITEM.byNameCodec().listOf().fieldOf("items")).build());
+            () -> AttachmentType.<List<Item>>builder(() -> List.of()).serialize(BuiltInRegistries.ITEM.byNameCodec().listOf()).build());
     /** Set on an item a player who knows a ritual's research threw, so only those count as offerings. */
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> SCHOLAR_TOSS = ATTACHMENTS.register("scholar_toss",
-            () -> AttachmentType.builder(() -> false).serialize(Codec.BOOL.fieldOf("tossed")).build());
+            () -> AttachmentType.builder(() -> false).serialize(Codec.BOOL).build());
 
     /** Gear that oils with an armour effect may go on, and gear for tool effects (filled from vanilla enchantable tags). */
     public static final TagKey<Item> IMBUABLE_ARMOR = TagKey.create(Registries.ITEM, Aromara.id("imbuable/armor"));
@@ -104,14 +112,19 @@ public final class ARRegistry {
     public static final DeferredItem<Item> PARCHMENT = item("parchment", Item::new, p -> p);
     public static final DeferredItem<ResearchBriefItem> RESEARCH_BRIEF = item("research_brief", ResearchBriefItem::new, p -> p.stacksTo(1));
 
+    public static final DeferredItem<BrazierCartItem> BRAZIER_CART = item("brazier_cart", BrazierCartItem::new, p -> p.stacksTo(1));
+    public static final DeferredHolder<EntityType<?>, EntityType<BrazierCart>> BRAZIER_CART_TYPE = ENTITY_TYPES.register("brazier_cart",
+            () -> EntityType.Builder.<BrazierCart>of(BrazierCart::new, MobCategory.MISC).sized(0.98f, 0.7f)
+                    .passengerAttachments(0.1875f).clientTrackingRange(8).build("brazier_cart"));
+
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PressingStoneBlockEntity>> PRESSING_STONE_BE = BLOCK_ENTITIES.register("pressing_stone",
-            () -> new BlockEntityType<>(PressingStoneBlockEntity::new, PRESSING_STONE.get()));
+            () -> BlockEntityType.Builder.of(PressingStoneBlockEntity::new, PRESSING_STONE.get()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ArcaneBrazierBlockEntity>> ARCANE_BRAZIER_BE = BLOCK_ENTITIES.register("arcane_brazier",
-            () -> new BlockEntityType<>(ArcaneBrazierBlockEntity::new, ARCANE_BRAZIER.get()));
+            () -> BlockEntityType.Builder.of(ArcaneBrazierBlockEntity::new, ARCANE_BRAZIER.get()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<CandleVatBlockEntity>> CANDLE_VAT_BE = BLOCK_ENTITIES.register("candle_vat",
-            () -> new BlockEntityType<>(CandleVatBlockEntity::new, CANDLE_VAT.get()));
+            () -> BlockEntityType.Builder.of(CandleVatBlockEntity::new, CANDLE_VAT.get()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ServoscrivenerBlockEntity>> SERVOSCRIVENER_BE = BLOCK_ENTITIES.register("servoscrivener",
-            () -> new BlockEntityType<>(ServoscrivenerBlockEntity::new, SERVOSCRIVENER.get()));
+            () -> BlockEntityType.Builder.of(ServoscrivenerBlockEntity::new, SERVOSCRIVENER.get()).build(null));
 
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<ImbueRecipe>> IMBUE = RECIPE_SERIALIZERS.register("imbue",
             () -> ImbueRecipe.SERIALIZER);
@@ -127,13 +140,13 @@ public final class ARRegistry {
 
     private static <B extends Block> DeferredBlock<B> block(String name, Function<Block.Properties, B> factory,
                                                            UnaryOperator<Block.Properties> props) {
-        DeferredBlock<B> block = BLOCKS.registerBlock(name, factory, props);
+        DeferredBlock<B> block = BLOCKS.registerBlock(name, factory, props.apply(Block.Properties.of()));
         TAB_ITEMS.add(ITEMS.registerSimpleBlockItem(block));
         return block;
     }
 
     private static <I extends Item> DeferredItem<I> item(String name, Function<Item.Properties, I> factory, UnaryOperator<Item.Properties> props) {
-        DeferredItem<I> item = ITEMS.registerItem(name, factory, props);
+        DeferredItem<I> item = ITEMS.registerItem(name, factory, props.apply(new Item.Properties()));
         TAB_ITEMS.add(item);
         return item;
     }
@@ -145,11 +158,15 @@ public final class ARRegistry {
         BLOCK_ENTITIES.register(bus);
         RECIPE_SERIALIZERS.register(bus);
         ATTACHMENTS.register(bus);
+        ENTITY_TYPES.register(bus);
         TABS.register(bus);
         bus.addListener(ARRegistry::registerCapabilities);
     }
 
     private static void registerCapabilities(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(EssentiaCapabilities.TRANSPORT, CANDLE_VAT_BE.get(), (be, side) -> side == null || side == net.minecraft.core.Direction.DOWN ? be.sink() : null);
+        // The Brazier Cart's coal slot: hoppers and cart loaders fill it (the cart refuses to give coal back).
+        event.registerEntity(Capabilities.ItemHandler.ENTITY, BRAZIER_CART_TYPE.get(), (cart, ctx) -> new InvWrapper(cart));
+        event.registerEntity(Capabilities.ItemHandler.ENTITY_AUTOMATION, BRAZIER_CART_TYPE.get(), (cart, side) -> new InvWrapper(cart));
     }
 }

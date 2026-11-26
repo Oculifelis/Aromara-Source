@@ -8,7 +8,7 @@
   ],
   "key": {
     "C": {
-      "neoforge:ingredient_type": "neoforge:components",
+      "type": "neoforge:components",
       "items": "thaumaturge:essentia_crystal",
       "components": {
         "thaumaturge:crystal_aspect": {
@@ -16,9 +16,15 @@
         }
       }
     },
-    "P": "thaumaturge:plate_iron",
-    "H": "minecraft:tripwire_hook",
-    "E": "thaumaturge:nugget_brass"
+    "P": {
+      "item": "thaumaturge:plate_iron"
+    },
+    "H": {
+      "item": "minecraft:tripwire_hook"
+    },
+    "E": {
+      "item": "thaumaturge:nugget_brass"
+    }
   },
   "pattern": [
     " C ",

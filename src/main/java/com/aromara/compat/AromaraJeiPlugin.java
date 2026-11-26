@@ -18,13 +18,13 @@ import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.category.AbstractRecipeCategory;
-import mezz.jei.api.recipe.types.IRecipeType;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -39,18 +39,18 @@ import net.minecraft.world.item.Item;
  */
 @JeiPlugin
 public final class AromaraJeiPlugin implements IModPlugin {
-    record Scent(Identifier id, Scents.Definition def) {
+    record Scent(ResourceLocation id, Scents.Definition def) {
     }
 
-    static final IRecipeType<Scent> PRESSING = IRecipeType.create(Aromara.id("pressing"), Scent.class);
-    static final IRecipeType<Scent> CANDLE_VAT = IRecipeType.create(Aromara.id("candle_vat"), Scent.class);
-    static final IRecipeType<Scent> BRAZIER = IRecipeType.create(Aromara.id("brazier"), Scent.class);
-    static final IRecipeType<PortalRituals.Ritual> PORTAL_RITUAL = IRecipeType.create(Aromara.id("portal_ritual"), PortalRituals.Ritual.class);
+    static final RecipeType<Scent> PRESSING = RecipeType.create(Aromara.MODID, "pressing", Scent.class);
+    static final RecipeType<Scent> CANDLE_VAT = RecipeType.create(Aromara.MODID, "candle_vat", Scent.class);
+    static final RecipeType<Scent> BRAZIER = RecipeType.create(Aromara.MODID, "brazier", Scent.class);
+    static final RecipeType<PortalRituals.Ritual> PORTAL_RITUAL = RecipeType.create(Aromara.MODID, "portal_ritual", PortalRituals.Ritual.class);
 
     private static final String[] INFO = {"heating_element", "candle_vat", "servoscrivener", "research_brief", "vishroom_cap", "vishroom_stem"};
 
     @Override
-    public Identifier getPluginUid() {
+    public ResourceLocation getPluginUid() {
         return Aromara.id("jei");
     }
 
@@ -62,9 +62,9 @@ public final class AromaraJeiPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-        registration.addCraftingStation(PRESSING, ARRegistry.PRESSING_STONE.get());
-        registration.addCraftingStation(CANDLE_VAT, ARRegistry.CANDLE_VAT.get(), ARRegistry.HEATING_ELEMENT.get());
-        registration.addCraftingStation(BRAZIER, ARRegistry.ARCANE_BRAZIER.get());
+        registration.addRecipeCatalysts(PRESSING, ARRegistry.PRESSING_STONE.get());
+        registration.addRecipeCatalysts(CANDLE_VAT, ARRegistry.CANDLE_VAT.get(), ARRegistry.HEATING_ELEMENT.get());
+        registration.addRecipeCatalysts(BRAZIER, ARRegistry.ARCANE_BRAZIER.get());
     }
 
     @Override
@@ -82,7 +82,7 @@ public final class AromaraJeiPlugin implements IModPlugin {
         }
     }
 
-    private static ItemStack bundle(Identifier scent, boolean dried) {
+    private static ItemStack bundle(ResourceLocation scent, boolean dried) {
         ItemStack stack = new ItemStack(ARRegistry.REDOLENT_BUNDLE.get());
         stack.set(ARRegistry.SCENT.get(), new ScentData(scent, dried));
         return stack;
@@ -105,12 +105,12 @@ public final class AromaraJeiPlugin implements IModPlugin {
 
         @Override
         public void setRecipe(IRecipeLayoutBuilder builder, Scent recipe, IFocusGroup focuses) {
-            builder.addInputSlot(4, 4).setStandardSlotBackground().add(bundle(recipe.id(), false));
+            builder.addInputSlot(4, 4).setStandardSlotBackground().addItemStack(bundle(recipe.id(), false));
             builder.addInputSlot(4, 22).setStandardSlotBackground().addItemStacks(tag(ARRegistry.PRESSING_CATALYST));
-            builder.addOutputSlot(60, 4).setOutputSlotBackground().add(bundle(recipe.id(), true));
+            builder.addOutputSlot(60, 4).setOutputSlotBackground().addItemStack(bundle(recipe.id(), true));
             int x = 84;
             for (AspectInstance a : AspectIndexAccess.of(new ItemStack(recipe.def().plant())).entries()) {
-                builder.addOutputSlot(x, 4).setOutputSlotBackground().add(EssentiaCrystalAccess.create(a.aspect(), 1));
+                builder.addOutputSlot(x, 4).setOutputSlotBackground().addItemStack(EssentiaCrystalAccess.create(a.aspect(), 1));
                 x += 18;
                 if (x > 132) {
                     break;
@@ -132,11 +132,11 @@ public final class AromaraJeiPlugin implements IModPlugin {
 
         @Override
         public void setRecipe(IRecipeLayoutBuilder builder, Scent recipe, IFocusGroup focuses) {
-            builder.addInputSlot(4, 4).setStandardSlotBackground().add(bundle(recipe.id(), true));
-            builder.addInputSlot(24, 4).setStandardSlotBackground().add(new ItemStack(ARRegistry.SCENT_PHIAL.get()));
+            builder.addInputSlot(4, 4).setStandardSlotBackground().addItemStack(bundle(recipe.id(), true));
+            builder.addInputSlot(24, 4).setStandardSlotBackground().addItemStack(new ItemStack(ARRegistry.SCENT_PHIAL.get()));
             ItemStack oil = new ItemStack(ARRegistry.SCENT_PHIAL.get());
             oil.set(ARRegistry.OIL.get(), new OilData(recipe.id(), false));
-            builder.addOutputSlot(84, 4).setOutputSlotBackground().add(oil);
+            builder.addOutputSlot(84, 4).setOutputSlotBackground().addItemStack(oil);
         }
 
         @Override
@@ -153,13 +153,13 @@ public final class AromaraJeiPlugin implements IModPlugin {
 
         @Override
         public void setRecipe(IRecipeLayoutBuilder builder, Scent recipe, IFocusGroup focuses) {
-            builder.addInputSlot(4, 4).setStandardSlotBackground().add(bundle(recipe.id(), true));
+            builder.addInputSlot(4, 4).setStandardSlotBackground().addItemStack(bundle(recipe.id(), true));
             builder.addInputSlot(24, 4).setStandardSlotBackground().addItemStacks(tag(ItemTags.COALS));
         }
 
         @Override
         public void createRecipeExtras(IRecipeExtrasBuilder builder, Scent recipe, IFocusGroup focuses) {
-            Identifier effect = recipe.def().brazierEffect();
+            ResourceLocation effect = recipe.def().brazierEffect();
             builder.addText(Component.translatableWithFallback("jei.aromara.brazier." + effect.getNamespace() + "." + effect.getPath(),
                     effect.toString()), 150, 30).setPosition(0, 26).setColor(0xFF404040);
         }
@@ -173,9 +173,9 @@ public final class AromaraJeiPlugin implements IModPlugin {
         @Override
         public void setRecipe(IRecipeLayoutBuilder builder, PortalRituals.Ritual recipe, IFocusGroup focuses) {
             for (int i = 0; i < recipe.offerings().size() && i < 5; i++) {
-                builder.addInputSlot(4 + i * 18, 4).setStandardSlotBackground().add(new ItemStack(recipe.offerings().get(i)));
+                builder.addInputSlot(4 + i * 18, 4).setStandardSlotBackground().addItemStack(new ItemStack(recipe.offerings().get(i)));
             }
-            builder.addOutputSlot(128, 4).setOutputSlotBackground().add(new ItemStack(recipe.drop()));
+            builder.addOutputSlot(128, 4).setOutputSlotBackground().addItemStack(new ItemStack(recipe.drop()));
         }
 
         @Override

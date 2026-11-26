@@ -14,7 +14,7 @@ import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
@@ -23,10 +23,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
+import com.aromara.util.ValueInput;
+import com.aromara.util.ValueOutput;
 import net.minecraft.world.phys.AABB;
-import org.jspecify.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * A crucible fitted with a Heating Element. It burns ignis essentia drawn up a tube from below. Flesh melts into
@@ -34,12 +34,12 @@ import org.jspecify.annotations.Nullable;
  * stage takes {@code stage_ticks} ticks; fat left alone {@code spoil_ticks} past its stage turns rancid.
  */
 public class CandleVatBlockEntity extends BlockEntity {
-    private static final Identifier RANCID = Aromara.id("rancid");
+    private static final ResourceLocation RANCID = Aromara.id("rancid");
 
     private int ignis;
     private int timer;
     private ItemStack bundle = ItemStack.EMPTY;
-    private @Nullable Identifier oil;
+    private @Nullable ResourceLocation oil;
     private final Sink sink = new Sink();
 
     public CandleVatBlockEntity(BlockPos pos, BlockState state) {
@@ -99,7 +99,7 @@ public class CandleVatBlockEntity extends BlockEntity {
             return ItemStack.EMPTY;
         }
         ItemStack phial = new ItemStack(ARRegistry.SCENT_PHIAL.get());
-        Identifier scent = oil != null ? oil : RANCID;
+        ResourceLocation scent = oil != null ? oil : RANCID;
         phial.set(ARRegistry.OIL.get(), new OilData(scent, status == CandleVatBlock.RANCID));
         oil = null;
         bundle = ItemStack.EMPTY;
@@ -180,7 +180,6 @@ public class CandleVatBlockEntity extends BlockEntity {
         }
     }
 
-    @Override
     public void preRemoveSideEffects(BlockPos pos, BlockState state) {
         if (level != null) {
             Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), bundle);
@@ -188,21 +187,23 @@ public class CandleVatBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(ValueOutput out) {
-        super.saveAdditional(out);
+    protected void saveAdditional(net.minecraft.nbt.CompoundTag tag, net.minecraft.core.HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
+        ValueOutput out = new ValueOutput(tag, registries);
         out.putInt("Ignis", ignis);
         out.putInt("Timer", timer);
         out.store("Bundle", ItemStack.OPTIONAL_CODEC, bundle);
-        out.storeNullable("Oil", Identifier.CODEC, oil);
+        out.storeNullable("Oil", ResourceLocation.CODEC, oil);
     }
 
     @Override
-    protected void loadAdditional(ValueInput in) {
-        super.loadAdditional(in);
+    protected void loadAdditional(net.minecraft.nbt.CompoundTag tag, net.minecraft.core.HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
+        ValueInput in = new ValueInput(tag, registries);
         ignis = in.getIntOr("Ignis", 0);
         timer = in.getIntOr("Timer", 0);
         bundle = in.read("Bundle", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
-        oil = in.read("Oil", Identifier.CODEC).orElse(null);
+        oil = in.read("Oil", ResourceLocation.CODEC).orElse(null);
     }
 
     /** The vat's bottom face as a tube endpoint: asks for ignis while it has room, never gives any out. */

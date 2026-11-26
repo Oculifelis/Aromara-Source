@@ -17,8 +17,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
+import com.aromara.util.ValueInput;
+import com.aromara.util.ValueOutput;
 
 /**
  * Dries a Redolent Bundle. While pressed (one wand click), each tick has a small chance to push one point of the
@@ -145,7 +145,6 @@ public class PressingStoneBlockEntity extends BlockEntity {
         be.setChanged();
     }
 
-    @Override
     public void preRemoveSideEffects(BlockPos pos, BlockState state) {
         if (level != null) {
             Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), catalyst);
@@ -154,8 +153,9 @@ public class PressingStoneBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(ValueOutput out) {
-        super.saveAdditional(out);
+    protected void saveAdditional(net.minecraft.nbt.CompoundTag tag, net.minecraft.core.HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
+        ValueOutput out = new ValueOutput(tag, registries);
         out.store("Catalyst", ItemStack.OPTIONAL_CODEC, catalyst);
         out.store("Bundle", ItemStack.OPTIONAL_CODEC, bundle);
         out.putInt("PressLeft", pressLeft);
@@ -163,8 +163,9 @@ public class PressingStoneBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void loadAdditional(ValueInput in) {
-        super.loadAdditional(in);
+    protected void loadAdditional(net.minecraft.nbt.CompoundTag tag, net.minecraft.core.HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
+        ValueInput in = new ValueInput(tag, registries);
         catalyst = in.read("Catalyst", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
         bundle = in.read("Bundle", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
         pressLeft = in.getIntOr("PressLeft", 0);

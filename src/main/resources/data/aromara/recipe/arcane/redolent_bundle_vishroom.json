@@ -11,11 +11,21 @@
     }
   ],
   "ingredients": [
-    "thaumaturge:vishroom",
-    "thaumaturge:vishroom",
-    "thaumaturge:vishroom",
-    "thaumaturge:vishroom",
-    "minecraft:string"
+    {
+      "item": "thaumaturge:vishroom"
+    },
+    {
+      "item": "thaumaturge:vishroom"
+    },
+    {
+      "item": "thaumaturge:vishroom"
+    },
+    {
+      "item": "thaumaturge:vishroom"
+    },
+    {
+      "item": "minecraft:string"
+    }
   ],
   "research": {
     "entry": "aromara:scent_burning",

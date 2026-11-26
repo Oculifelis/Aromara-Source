@@ -27,10 +27,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
+import com.aromara.util.ValueInput;
+import com.aromara.util.ValueOutput;
 import net.minecraft.world.phys.AABB;
-import org.jspecify.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Holds one open Research Brief. On insertion it picks a few marked words of the brief's riddle; each stands for an
@@ -68,7 +68,7 @@ public class ServoscrivenerBlockEntity extends BlockEntity {
         }
         Riddles.Riddle riddle = Riddles.get(data.research());
         if (riddle == null || riddle.words().isEmpty()) {
-            player.sendOverlayMessage(Component.translatable("message.aromara.scrivener.unknown"));
+            player.displayClientMessage(Component.translatable("message.aromara.scrivener.unknown"), true);
             return false;
         }
         brief = held.copyWithCount(1);
@@ -214,7 +214,6 @@ public class ServoscrivenerBlockEntity extends BlockEntity {
         level.addFreshEntity(drop);
     }
 
-    @Override
     public void preRemoveSideEffects(BlockPos pos, BlockState state) {
         if (level != null) {
             Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), brief);
@@ -222,8 +221,9 @@ public class ServoscrivenerBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(ValueOutput out) {
-        super.saveAdditional(out);
+    protected void saveAdditional(net.minecraft.nbt.CompoundTag tag, net.minecraft.core.HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
+        ValueOutput out = new ValueOutput(tag, registries);
         out.store("Brief", ItemStack.OPTIONAL_CODEC, brief);
         out.store("Needs", Need.CODEC.listOf(), List.copyOf(needs));
         out.putInt("Delay", delay);
@@ -231,8 +231,9 @@ public class ServoscrivenerBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void loadAdditional(ValueInput in) {
-        super.loadAdditional(in);
+    protected void loadAdditional(net.minecraft.nbt.CompoundTag tag, net.minecraft.core.HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
+        ValueInput in = new ValueInput(tag, registries);
         brief = in.read("Brief", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
         needs.clear();
         in.read("Needs", Need.CODEC.listOf()).ifPresent(needs::addAll);
