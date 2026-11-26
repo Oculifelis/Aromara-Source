@@ -8,6 +8,8 @@ import com.aromara.block.PressingStoneBlock;
 import com.aromara.block.PressingStoneBlockEntity;
 import com.aromara.block.ServoscrivenerBlock;
 import com.aromara.block.ServoscrivenerBlockEntity;
+import com.aromara.entity.BrazierCart;
+import com.aromara.item.BrazierCartItem;
 import com.aromara.item.BriefData;
 import com.aromara.item.HeatingElementItem;
 import com.aromara.item.OilData;
@@ -27,6 +29,9 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -39,7 +44,9 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.attachment.AttachmentType;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.transfer.item.VanillaContainerWrapper;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -55,6 +62,7 @@ public final class ARRegistry {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, MODID);
     public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(Registries.RECIPE_SERIALIZER, MODID);
     public static final DeferredRegister<AttachmentType<?>> ATTACHMENTS = DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, MODID);
+    public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(Registries.ENTITY_TYPE, MODID);
     public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
     private static final List<Supplier<? extends Item>> TAB_ITEMS = new ArrayList<>();
@@ -104,6 +112,11 @@ public final class ARRegistry {
     public static final DeferredItem<Item> PARCHMENT = item("parchment", Item::new, p -> p);
     public static final DeferredItem<ResearchBriefItem> RESEARCH_BRIEF = item("research_brief", ResearchBriefItem::new, p -> p.stacksTo(1));
 
+    public static final DeferredItem<BrazierCartItem> BRAZIER_CART = item("brazier_cart", BrazierCartItem::new, p -> p.stacksTo(1));
+    public static final DeferredHolder<EntityType<?>, EntityType<BrazierCart>> BRAZIER_CART_TYPE = ENTITY_TYPES.register("brazier_cart",
+            id -> EntityType.Builder.<BrazierCart>of(BrazierCart::new, MobCategory.MISC).noLootTable().sized(0.98f, 0.7f)
+                    .passengerAttachments(0.1875f).clientTrackingRange(8).build(ResourceKey.create(Registries.ENTITY_TYPE, id)));
+
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PressingStoneBlockEntity>> PRESSING_STONE_BE = BLOCK_ENTITIES.register("pressing_stone",
             () -> new BlockEntityType<>(PressingStoneBlockEntity::new, PRESSING_STONE.get()));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ArcaneBrazierBlockEntity>> ARCANE_BRAZIER_BE = BLOCK_ENTITIES.register("arcane_brazier",
@@ -145,11 +158,15 @@ public final class ARRegistry {
         BLOCK_ENTITIES.register(bus);
         RECIPE_SERIALIZERS.register(bus);
         ATTACHMENTS.register(bus);
+        ENTITY_TYPES.register(bus);
         TABS.register(bus);
         bus.addListener(ARRegistry::registerCapabilities);
     }
 
     private static void registerCapabilities(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(EssentiaCapabilities.TRANSPORT, CANDLE_VAT_BE.get(), (be, side) -> side == null || side == net.minecraft.core.Direction.DOWN ? be.sink() : null);
+        // The Brazier Cart's coal slot: hoppers and cart loaders fill it (the cart refuses to give coal back).
+        event.registerEntity(Capabilities.Item.ENTITY, BRAZIER_CART_TYPE.get(), (cart, ctx) -> VanillaContainerWrapper.of(cart));
+        event.registerEntity(Capabilities.Item.ENTITY_AUTOMATION, BRAZIER_CART_TYPE.get(), (cart, side) -> VanillaContainerWrapper.of(cart));
     }
 }

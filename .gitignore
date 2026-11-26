@@ -5,3 +5,11 @@ libs/*.jar
 *.log
 .idea/
 out/
+
+# vanilla source sprites for tools/art_cart (Mojang art, local only)
+tools/art_cart/*_minecart.png
+tools/art_cart/minecart.png
+tools/art_cart/sheet.png
+tools/art_cart/zoom.png
+tools/art_cart/round/
+tools/art_cart/round3/

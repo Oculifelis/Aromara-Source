@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "aromara:block/candle_vat_0"
+    "model": "aromara:item/candle_vat"
   }
 }

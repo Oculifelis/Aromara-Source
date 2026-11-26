@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:minecart",
+    "aromara:arcane_brazier"
+  ],
+  "result": {
+    "id": "aromara:brazier_cart"
+  }
+}

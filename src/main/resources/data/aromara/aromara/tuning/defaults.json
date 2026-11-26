@@ -11,6 +11,14 @@
     "radius": 10,
     "ignite_centivis": 200
   },
+  "brew": {
+    "burn_seconds": 60,
+    "extended_multiplier": 2,
+    "effect_ticks": 160,
+    "refresh_ticks": 80,
+    "instant_every": 3,
+    "coal_rate": 2
+  },
   "purge_taint": {
     "flux_drained": 1,
     "burn_seconds": 10,

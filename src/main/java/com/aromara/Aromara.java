@@ -6,6 +6,7 @@ import com.aromara.data.Scents;
 import com.aromara.research.PortalRituals;
 import com.aromara.research.Riddles;
 import com.aromara.research.ScrivenerEvents;
+import com.aromara.scent.BrazierBrews;
 import com.aromara.scent.OilEvents;
 import com.mojang.logging.LogUtils;
 import net.minecraft.resources.Identifier;
@@ -23,6 +24,7 @@ public final class Aromara {
 
     public Aromara(IEventBus modBus) {
         ARRegistry.register(modBus);
+        BrazierBrews.register(modBus);
         OilEvents.register(NeoForge.EVENT_BUS);
         ScrivenerEvents.register(NeoForge.EVENT_BUS);
         PortalRituals.register(NeoForge.EVENT_BUS);

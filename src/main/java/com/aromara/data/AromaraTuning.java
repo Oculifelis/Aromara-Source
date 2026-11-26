@@ -39,6 +39,13 @@ public final class AromaraTuning {
         def("brazier.radius", 10, 1, 32);
         def("brazier.ignite_centivis", 200, 0, 10_000);
 
+        def("brew.burn_seconds", 60, 1, 3600);
+        def("brew.extended_multiplier", 2, 1, 8);
+        def("brew.effect_ticks", 160, 20, 2400);
+        def("brew.refresh_ticks", 80, 10, 1200);
+        def("brew.instant_every", 3, 1, 60);
+        def("brew.coal_rate", 2, 1, 8);
+
         def("purge_taint.flux_drained", 1, 0, 100);
         def("purge_taint.burn_seconds", 10, 0, 120);
         def("purge_taint.pressure_cleaned", 0.5, 0, 100);
